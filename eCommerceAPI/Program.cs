@@ -1,12 +1,13 @@
 using Core.Interfaces;
 using Infrastructure.Data;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace eCommerceAPI
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
@@ -44,19 +45,21 @@ namespace eCommerceAPI
             app.MapControllers();
 
             // to update migrations and database automatically
+            
             using var scope = app.Services.CreateScope();
-            var services = scope.ServiceProvider;
-            var context = services.GetRequiredService<StoreContext>();
-            var logger = services.GetRequiredService < ILogger<Program>>();
+            var Services = scope.ServiceProvider;
+            var context = Services.GetRequiredService<StoreContext>();
+            var Logger = Services.GetRequiredService<ILogger<Program>>();
+
             try
             {
-                 context.Database.Migrate();
+                await context.Database.MigrateAsync();
+                await StoreContextSeed.SeedAsync(context);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                logger.LogError(ex, "Error occured with migrating process");
+                Logger.LogError(ex, "Error occured while migrating process");
             }
-
             app.Run();
         }
     }
