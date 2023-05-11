@@ -20,6 +20,8 @@ namespace eCommerceAPI
 
             // service configrations 
             builder.Services.AddScoped<IProductRepository, ProductRepository>();
+            builder.Services.AddScoped(typeof(IBaseEntityRepositry<>), typeof(BaseEntityRepositry<>));
+
 
             //get connection to database 
             builder.Services.AddDbContext<StoreContext>(options =>
