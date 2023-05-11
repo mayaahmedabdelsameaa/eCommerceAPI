@@ -43,6 +43,20 @@ namespace eCommerceAPI
 
             app.MapControllers();
 
+            // to update migrations and database automatically
+            using var scope = app.Services.CreateScope();
+            var services = scope.ServiceProvider;
+            var context = services.GetRequiredService<StoreContext>();
+            var logger = services.GetRequiredService < ILogger<Program>>();
+            try
+            {
+                 context.Database.Migrate();
+            }
+            catch(Exception ex)
+            {
+                logger.LogError(ex, "Error occured with migrating process");
+            }
+
             app.Run();
         }
     }

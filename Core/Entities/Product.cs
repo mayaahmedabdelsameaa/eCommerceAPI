@@ -3,11 +3,19 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Core.Entities
 {
-    public class Product
+    public class Product:BaseEntity
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
         public string Name { get; set; }
+        public string Descritption { get; set; }
+        public decimal Price { get; set; }
+        public string PictureUrl { get; set; }
+
+        // relations
+        public int ProductTypeId { get; set; }
+        public ProductType ProductType { get; set; }
+
+        public int ProductBrandId { get; set; }
+        public ProductBrand ProductBrand { get; set; }
+
     }
 }
