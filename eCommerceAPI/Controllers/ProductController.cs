@@ -29,17 +29,17 @@ namespace eCommerceAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<ProductDTO>>> GetProducts()
+        public async Task<ActionResult<List<ProductDTO>>> GetProducts(string sort)
         {
-            var spec = new ProductWithTypesAndBrandsSpecification();
+            var spec = new ProductWithTypesAndBrandsSpecification(sort);
             var products = await _productRepo.ListAsync(spec); 
             return Ok(_mapper.Map<IReadOnlyList<Product>, IReadOnlyList<ProductDTO>>(products));
         }
 
         [HttpGet("id")]
-        public async Task<ActionResult<ProductDTO>> GetProduct(int id)
+        public async Task<ActionResult<ProductDTO>> GetProduct(int id,string sort)
         {
-            var spec = new ProductWithTypesAndBrandsSpecification();
+            var spec = new ProductWithTypesAndBrandsSpecification(sort);
             var product = await _productRepo.GetEntityWithSpecificatioons(spec);
             return _mapper.Map<Product, ProductDTO>(product);
 

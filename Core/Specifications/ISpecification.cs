@@ -12,5 +12,11 @@ namespace Core.Specifications
         Expression<Func<T, bool>> Creiteria { get; }
 
         List<Expression<Func<T,object>>> Includes { get; }
+
+        // order 
+        Expression<Func<T,object>> OrderBy { get; }
+
+        // order descending 
+        Expression<Func<T,object>> OrderByDescending { get; }
     }
 }
