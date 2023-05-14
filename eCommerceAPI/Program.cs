@@ -1,4 +1,5 @@
 using Core.Interfaces;
+using eCommerceAPI.Middelware;
 using Infrastructure.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -22,6 +23,8 @@ namespace eCommerceAPI
             builder.Services.AddScoped<IProductRepository, ProductRepository>();
             builder.Services.AddScoped(typeof(IBaseEntityRepositry<>), typeof(BaseEntityRepositry<>));
 
+            // tell the program to use the mapper to return the DTO files 
+            builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             //get connection to database 
             builder.Services.AddDbContext<StoreContext>(options =>
@@ -39,7 +42,16 @@ namespace eCommerceAPI
                 app.UseSwaggerUI();
             }
 
+            // telling the app to use our middelware 
+            app.UseMiddleware<ExceptionMiddelware>();
+
+            // handeling page notFound
+            app.UseStatusCodePagesWithReExecute("/errors/{0}");
+
             app.UseHttpsRedirection();
+
+            // to save static files in our code 
+            app.UseStaticFiles();
 
             app.UseAuthorization();
 

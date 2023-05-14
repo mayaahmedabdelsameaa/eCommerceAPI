@@ -6,40 +6,34 @@ using Microsoft.EntityFrameworkCore;
 using Core.Interfaces;
 using Core.Specifications;
 using eCommerceAPI.DTOS;
+using AutoMapper;
 
 namespace eCommerceAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ProductController : ControllerBase
+    public class ProductController : BaseAPIController
     {
         private readonly IProductRepository _service;
         private readonly IBaseEntityRepositry<ProductBrand> _productBrandRepo;
         private readonly IBaseEntityRepositry<ProductType> _productTypeRepo;
         private readonly IBaseEntityRepositry<Product> _productRepo;
-        public ProductController(IProductRepository service, IBaseEntityRepositry<ProductBrand> productBrandRepo, IBaseEntityRepositry<ProductType> productTypeRepo, IBaseEntityRepositry<Product> productRepo)
+        private readonly IMapper _mapper;
+        public ProductController(IProductRepository service, IBaseEntityRepositry<ProductBrand> productBrandRepo, IBaseEntityRepositry<ProductType> productTypeRepo, IBaseEntityRepositry<Product> productRepo, IMapper mapper)
         {
             _service = service;
             _productBrandRepo = productBrandRepo;
             _productTypeRepo = productTypeRepo;
             _productRepo = productRepo;
+            _mapper = mapper;
         }
 
         [HttpGet]
         public async Task<ActionResult<List<ProductDTO>>> GetProducts()
         {
             var spec = new ProductWithTypesAndBrandsSpecification();
-            var products = await _productRepo.ListAsync(spec);
-            return products.Select(product => new ProductDTO()
-            {
-                Id = product.Id,
-                Name = product.Name,
-                Description = product.Description,
-                Price = product.Price,
-                PictureUrl = product.PictureUrl,
-                ProductBrand = product.ProductBrand.Name,
-                ProductType = product.ProductType.Name
-            }).ToList();
+            var products = await _productRepo.ListAsync(spec); 
+            return Ok(_mapper.Map<IReadOnlyList<Product>, IReadOnlyList<ProductDTO>>(products));
         }
 
         [HttpGet("id")]
@@ -47,16 +41,8 @@ namespace eCommerceAPI.Controllers
         {
             var spec = new ProductWithTypesAndBrandsSpecification();
             var product = await _productRepo.GetEntityWithSpecificatioons(spec);
-            return new ProductDTO()
-            {
-                Id = product.Id,
-                Name = product.Name,
-                Description = product.Description,
-                Price = product.Price,
-                PictureUrl = product.PictureUrl,
-                ProductBrand = product.ProductBrand.Name,
-                ProductType = product.ProductType.Name
-            };
+            return _mapper.Map<Product, ProductDTO>(product);
+
         }
 
         [HttpGet("brands")]
