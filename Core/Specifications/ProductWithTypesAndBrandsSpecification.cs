@@ -11,7 +11,9 @@ namespace Core.Specifications
     {
         public ProductWithTypesAndBrandsSpecification(ProductSpicParams productSpicParams)
             : base(
-                 x=>(!productSpicParams.brandId.HasValue || x.ProductBrandId== productSpicParams.brandId) && 
+                 x=>
+                 (string.IsNullOrEmpty(productSpicParams.Search) ||x.Name.ToLower().Contains(productSpicParams.Search)) &&
+                 (!productSpicParams.brandId.HasValue || x.ProductBrandId== productSpicParams.brandId) && 
                  (!productSpicParams.typeId.HasValue || x.ProductTypeId== productSpicParams.typeId)
                  )
         { 
