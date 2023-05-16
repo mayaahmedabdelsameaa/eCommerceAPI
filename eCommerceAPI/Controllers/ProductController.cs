@@ -7,6 +7,7 @@ using Core.Interfaces;
 using Core.Specifications;
 using eCommerceAPI.DTOS;
 using AutoMapper;
+using eCommerceAPI.Helpers;
 
 namespace eCommerceAPI.Controllers
 {
@@ -29,17 +30,20 @@ namespace eCommerceAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<ProductDTO>>> GetProducts(string sort)
+        public async Task<ActionResult<Pagination<ProductDTO>>> GetProducts([FromQuery]ProductSpicParams productSpicParams )
         {
-            var spec = new ProductWithTypesAndBrandsSpecification(sort);
-            var products = await _productRepo.ListAsync(spec); 
-            return Ok(_mapper.Map<IReadOnlyList<Product>, IReadOnlyList<ProductDTO>>(products));
+            var spec = new ProductWithTypesAndBrandsSpecification(productSpicParams);
+            var countSpec = new ProductWithFiltersForCountSpecifications(productSpicParams);
+            var totalItems = await _productRepo.CountAsync(countSpec);
+            var products = await _productRepo.ListAsync(spec);
+            var data = _mapper.Map<IReadOnlyList<Product>, IReadOnlyList<ProductDTO>>(products);
+            return Ok(new Pagination<ProductDTO>(productSpicParams.PageIndex, productSpicParams.PageSize, totalItems, data));
         }
 
         [HttpGet("id")]
-        public async Task<ActionResult<ProductDTO>> GetProduct(int id,string sort)
+        public async Task<ActionResult<ProductDTO>> GetProduct(int id)
         {
-            var spec = new ProductWithTypesAndBrandsSpecification(sort);
+            var spec = new ProductWithTypesAndBrandsSpecification(id);
             var product = await _productRepo.GetEntityWithSpecificatioons(spec);
             return _mapper.Map<Product, ProductDTO>(product);
 

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Data
 {
-    public class SpecificationEvaluator<TEntity> where TEntity :BaseEntity
+    public class SpecificationEvaluator<TEntity> where TEntity : BaseEntity
     {
         public static IQueryable<TEntity> getQuery(IQueryable<TEntity> inputQuery, ISpecification<TEntity> specification)
         {
@@ -25,6 +25,13 @@ namespace Infrastructure.Data
             if (specification.OrderByDescending != null)
             {
                 query = query.OrderBy(specification.OrderByDescending);
+            }
+            if (specification.IsPagingEnabled)
+            {
+                var offset = specification.Skip >= 0 ? specification.Skip : 0;
+                var take = specification.Take >= 0 ? specification.Take : 0;
+
+                query = query.Skip(offset).Take(take);
             }
             query = specification.Includes.Aggregate(query, (current, include) => current.Include(include));
             return query;

@@ -1,0 +1,23 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Core.Specifications
+{
+    public class ProductSpicParams
+    {
+        private const int MaxPageSize = 50;
+        private int _PageSize = 6;
+        public int PageIndex { get; set; }
+        public int PageSize
+        {
+            get => _PageSize;
+            set => _PageSize = (value > MaxPageSize) ? MaxPageSize : value;
+        }
+        public int? brandId { get; set; }
+        public int? typeId { get; set; }
+        public string Sort { get; set; }
+    }
+}
