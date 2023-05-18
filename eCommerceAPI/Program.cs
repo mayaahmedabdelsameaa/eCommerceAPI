@@ -26,6 +26,18 @@ namespace eCommerceAPI
             // tell the program to use the mapper to return the DTO files 
             builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
+            // avoiding the error of cors 
+            builder.Services.AddCors(option =>
+            {
+                option.AddPolicy("CorsPolicy", policy =>
+                {
+                    policy.AllowAnyOrigin()
+                          .AllowAnyHeader()
+                          .AllowAnyMethod();
+                          
+                });
+            });
+
             //get connection to database 
             builder.Services.AddDbContext<StoreContext>(options =>
             {
@@ -52,6 +64,9 @@ namespace eCommerceAPI
 
             // to save static files in our code 
             app.UseStaticFiles();
+
+            // to use cors 
+            app.UseCors("CorsPolicy");
 
             app.UseAuthorization();
 
