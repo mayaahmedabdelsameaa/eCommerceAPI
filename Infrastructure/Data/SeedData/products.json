@@ -36,7 +36,7 @@
     "Description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.",
     "Price": 250,
     "PictureUrl": "images/products/5.jpg",
-    "ProductTypeId": 1,
+    "ProductTypeId": 4,
     "ProductBrandId": 4
   },
   {
@@ -52,7 +52,7 @@
     "Description": "Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.",
     "Price": 10,
     "PictureUrl": "images/products/7.jpg",
-    "ProductTypeId": 2,
+    "ProductTypeId": 1,
     "ProductBrandId": 2
   },
   {
@@ -60,7 +60,7 @@
     "Description": "Suspendisse dui purus, scelerisque at, vulputate vitae, pretium mattis, nunc. Mauris eget neque at sem venenatis eleifend. Ut nonummy.",
     "Price": 8,
     "PictureUrl": "images/products/8.jpg",
-    "ProductTypeId": 2,
+    "ProductTypeId": 1,
     "ProductBrandId": 4
   },
   {
@@ -68,7 +68,7 @@
     "Description": "Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.",
     "Price": 15,
     "PictureUrl": "images/products/9.jpg",
-    "ProductTypeId": 2,
+    "ProductTypeId": 1,
     "ProductBrandId": 4
   },
   {
@@ -76,7 +76,7 @@
     "Description": "Nunc viverra imperdiet enim. Fusce est. Vivamus a tellus.",
     "Price": 18,
     "PictureUrl": "images/products/10.jpg",
-    "ProductTypeId": 4,
+    "ProductTypeId": 1,
     "ProductBrandId": 3
   },
   {
@@ -84,7 +84,7 @@
     "Description": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Proin pharetra nonummy pede. Mauris et orci.",
     "Price": 15,
     "PictureUrl": "images/products/11.jpg",
-    "ProductTypeId": 4,
+    "ProductTypeId": 1,
     "ProductBrandId": 3
   },
   {
@@ -92,7 +92,7 @@
     "Description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa.",
     "Price": 16,
     "PictureUrl": "images/products/12.jpg",
-    "ProductTypeId": 4,
+    "ProductTypeId": 1,
     "ProductBrandId": 4
   },
   {
@@ -100,7 +100,7 @@
     "Description": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Proin pharetra nonummy pede. Mauris et orci.",
     "Price": 14,
     "PictureUrl": "images/products/13.jpg",
-    "ProductTypeId": 4,
+    "ProductTypeId": 3,
     "ProductBrandId": 4
   },
   {
@@ -124,7 +124,7 @@
     "Description": "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Proin pharetra nonummy pede. Mauris et orci.",
     "Price": 199.99,
     "PictureUrl": "images/products/16.jpg",
-    "ProductTypeId": 3,
+    "ProductTypeId": 2,
     "ProductBrandId": 2
   },
   {
